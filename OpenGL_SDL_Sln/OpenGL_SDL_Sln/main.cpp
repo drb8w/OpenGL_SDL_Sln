@@ -73,6 +73,18 @@ int main(int argc, char *argv[])
 	/* This makes our buffer swap syncronized with the monitor's vertical refresh */
 	SDL_GL_SetSwapInterval(1);
 
+	// ----------------------------------------------------------------
+
+	// http://stackoverflow.com/questions/20766864/glew-opengl-access-violation-when-using-glgenvertexarrays
+	// Initialize GLEW
+    glewExperimental = true; // Needed for core profile
+    GLenum err = glewInit();
+    if (GLEW_OK != err)
+    {
+        /* Problem: glewInit failed, something is seriously wrong. */
+        fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+    }
+
 	// ===============================================================
 
 	///* Clear our buffer with a red background */
