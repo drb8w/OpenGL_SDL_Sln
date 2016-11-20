@@ -78,6 +78,8 @@ namespace TotalGlobal
 		// unbind VAO and VBO to avoid accidental changes
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+		return true;
 	}
 
 

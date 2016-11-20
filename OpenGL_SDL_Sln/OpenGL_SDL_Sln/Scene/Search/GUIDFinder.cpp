@@ -1,0 +1,8 @@
+#include "GUIDFinder.h"
+
+namespace TotalGlobal
+{
+
+	GUID GUIDFinder::ZeroGuid = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; //GUID_NULL;
+
+}

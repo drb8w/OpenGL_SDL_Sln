@@ -53,7 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\glew-1.12.0\include;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\SDL2-2.0.5\include;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\glm-0.9.7.1;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\common;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\SOIL\src;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\glew-1.12.0\include;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\SDL2-2.0.5\include;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\glm-0.9.7.1;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\common;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\SOIL\src;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Engine;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Scene;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Scene\Render;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Scene\Factory;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Scene\Data;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Scene\Search;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Model;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Shader;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Data;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -72,7 +72,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\glew-1.12.0\include;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\SDL2-2.0.5\include;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\glm-0.9.7.1;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\common;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\SOIL\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\glew-1.12.0\include;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\SDL2-2.0.5\include;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\glm-0.9.7.1;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\common;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Externals\SOIL\src;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Engine;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Scene;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Scene\Render;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Scene\Factory;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Scene\Data;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Scene\Search;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Model;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Shader;C:\OpenGL_SDL_Sln\OpenGL_SDL_Sln\OpenGL_SDL_Sln\Data;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -87,17 +87,42 @@
     <ClCompile Include="common\objloader.cpp" />
     <ClCompile Include="common\shader.cpp" />
     <ClCompile Include="common\texture.cpp" />
+    <ClCompile Include="Engine\RenderEngine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model\ObjModelLoader.cpp" />
+    <ClCompile Include="Scene\Factory\SceneNodeFactory.cpp" />
+    <ClCompile Include="Scene\Render\ModelNode.cpp" />
+    <ClCompile Include="Scene\Render\ShaderNode.cpp" />
+    <ClCompile Include="Scene\Render\TransformNode.cpp" />
+    <ClCompile Include="Scene\Search\GUIDFinder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\objloader.hpp" />
     <ClInclude Include="common\shader.hpp" />
     <ClInclude Include="common\texture.hpp" />
+    <ClInclude Include="Data\ModelData.h" />
+    <ClInclude Include="Data\SceneData.h" />
+    <ClInclude Include="Data\ShaderData.h" />
+    <ClInclude Include="Data\TransformData.h" />
+    <ClInclude Include="Engine\RenderEngine.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="Model\ObjModelLoader.h" />
-    <ClInclude Include="Scene\ModelNode.h" />
-    <ClInclude Include="Scene\SceneNode.h" />
-    <ClInclude Include="Scene\TransformNode.h" />
+    <ClInclude Include="Scene\Data\ModelNodeData.h" />
+    <ClInclude Include="Scene\Data\SceneNodeData.h" />
+    <ClInclude Include="Scene\Data\ShaderNodeData.h" />
+    <ClInclude Include="Scene\Data\TransformNodeData.h" />
+    <ClInclude Include="Scene\Factory\SceneNodeFactory.h" />
+    <ClInclude Include="Scene\Render\ModelNode.h" />
+    <ClInclude Include="Scene\Render\SceneNode.h" />
+    <ClInclude Include="Scene\Render\ShaderNode.h" />
+    <ClInclude Include="Scene\Render\TransformNode.h" />
+    <ClInclude Include="Scene\Search\GUIDFinder.h" />
+    <ClInclude Include="Scene\Search\NodeFinder.h" />
+    <ClInclude Include="Search\BreathFirstSearch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\TextureFragmentShader.fragmentshader" />
+    <None Include="Shader\TransformVertexShader.vertexshader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

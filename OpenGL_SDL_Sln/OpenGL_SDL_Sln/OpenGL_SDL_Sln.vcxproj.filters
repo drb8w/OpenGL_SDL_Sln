@@ -19,8 +19,32 @@
     <Filter Include="Source Files\Model">
       <UniqueIdentifier>{cdaa43c8-98c6-4a74-bad8-a1460352295c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene">
+    <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{dce914a0-94f9-46b9-ae12-a025604c8216}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{b786b5c9-3107-480f-ba1b-21602dff4843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shader">
+      <UniqueIdentifier>{2af48804-f368-41e5-be7d-15062b9751c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Data">
+      <UniqueIdentifier>{313e8f49-1338-4632-be5d-5b774d003505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Render">
+      <UniqueIdentifier>{f90fb895-44b0-4010-9153-614d93de8368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Factory">
+      <UniqueIdentifier>{f77219ce-4acb-40bb-a457-5dea693da7e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Data">
+      <UniqueIdentifier>{f986aeb6-7971-45d5-ac16-6ca7f44ac9f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Search">
+      <UniqueIdentifier>{8854a956-dda9-4295-a25c-178bc90c0e6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Search">
+      <UniqueIdentifier>{c32ec533-8453-408c-a22c-2ac7c76447a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +63,24 @@
     <ClCompile Include="Model\ObjModelLoader.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\RenderEngine.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Factory\SceneNodeFactory.cpp">
+      <Filter>Source Files\Scene\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Render\TransformNode.cpp">
+      <Filter>Source Files\Scene\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Render\ModelNode.cpp">
+      <Filter>Source Files\Scene\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Render\ShaderNode.cpp">
+      <Filter>Source Files\Scene\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Search\GUIDFinder.cpp">
+      <Filter>Source Files\Scene\Search</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\objloader.hpp">
@@ -53,14 +95,67 @@
     <ClInclude Include="Model\ObjModelLoader.h">
       <Filter>Source Files\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\ModelNode.h">
-      <Filter>Scene</Filter>
+    <ClInclude Include="Engine\RenderEngine.h">
+      <Filter>Source Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\TransformNode.h">
-      <Filter>Scene</Filter>
+    <ClInclude Include="Data\ModelData.h">
+      <Filter>Source Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\SceneNode.h">
-      <Filter>Scene</Filter>
+    <ClInclude Include="Data\SceneData.h">
+      <Filter>Source Files\Data</Filter>
     </ClInclude>
+    <ClInclude Include="Data\ShaderData.h">
+      <Filter>Source Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Data\ModelNodeData.h">
+      <Filter>Source Files\Scene\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Data\SceneNodeData.h">
+      <Filter>Source Files\Scene\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Data\ShaderNodeData.h">
+      <Filter>Source Files\Scene\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Data\TransformNodeData.h">
+      <Filter>Source Files\Scene\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Render\ModelNode.h">
+      <Filter>Source Files\Scene\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Render\SceneNode.h">
+      <Filter>Source Files\Scene\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Render\ShaderNode.h">
+      <Filter>Source Files\Scene\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Render\TransformNode.h">
+      <Filter>Source Files\Scene\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Factory\SceneNodeFactory.h">
+      <Filter>Source Files\Scene\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\TransformData.h">
+      <Filter>Source Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Search\BreathFirstSearch.h">
+      <Filter>Source Files\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Search\GUIDFinder.h">
+      <Filter>Source Files\Scene\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Search\NodeFinder.h">
+      <Filter>Source Files\Scene\Search</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\TextureFragmentShader.fragmentshader">
+      <Filter>Source Files\Shader</Filter>
+    </None>
+    <None Include="Shader\TransformVertexShader.vertexshader">
+      <Filter>Source Files\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

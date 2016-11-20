@@ -1,18 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "main.h"
 
-#include <windows.h>
-
-///* If using gl3.h */
-///* Ensure we are using opengl's core profile only */
-//#define GL3_PROTOTYPES 1
-//#include <GL3/gl3.h>
-
-//#include "glew.h"
-#include <GL/glew.h>
-
-#include <SDL.h>
-#define PROGRAM_NAME "Tutorial1"
+#include "ModelNodeData.h"
+#include "GUIDFinder.h"
 
 /* A simple function that prints a message, the error code returned by SDL,
 * and quits the application */
@@ -24,7 +13,7 @@ void sdldie(const char *msg)
 }
 
 
-void checkSDLError(int line = -1)
+void checkSDLError(int line)
 {
 #ifndef NDEBUG
 	const char *error = SDL_GetError();
@@ -84,25 +73,38 @@ int main(int argc, char *argv[])
 	/* This makes our buffer swap syncronized with the monitor's vertical refresh */
 	SDL_GL_SetSwapInterval(1);
 
-	/* Clear our buffer with a red background */
-	glClearColor(1.0, 0.0, 0.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
-	/* Swap our back buffer to the front */
-	SDL_GL_SwapWindow(mainwindow);
-	/* Wait 2 seconds */
-	SDL_Delay(2000);
+	// ===============================================================
 
-	/* Same as above, but green */
-	glClearColor(0.0, 1.0, 0.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
-	SDL_GL_SwapWindow(mainwindow);
-	SDL_Delay(2000);
+	///* Clear our buffer with a red background */
+	//glClearColor(1.0, 0.0, 0.0, 1.0);
+	//glClear(GL_COLOR_BUFFER_BIT);
+	///* Swap our back buffer to the front */
+	//SDL_GL_SwapWindow(mainwindow);
+	///* Wait 2 seconds */
+	//SDL_Delay(2000);
 
-	/* Same as above, but blue */
-	glClearColor(0.0, 0.0, 1.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
-	SDL_GL_SwapWindow(mainwindow);
-	SDL_Delay(2000);
+	///* Same as above, but green */
+	//glClearColor(0.0, 1.0, 0.0, 1.0);
+	//glClear(GL_COLOR_BUFFER_BIT);
+	//SDL_GL_SwapWindow(mainwindow);
+	//SDL_Delay(2000);
+
+	///* Same as above, but blue */
+	//glClearColor(0.0, 0.0, 1.0, 1.0);
+	//glClear(GL_COLOR_BUFFER_BIT);
+	//SDL_GL_SwapWindow(mainwindow);
+	//SDL_Delay(2000);
+
+	// ===============================================================
+	
+	std::vector<SceneNodeData *> sceneNodeDataSet = SetupScene();
+
+	RenderingEngine *pRenderEngine = new RenderingEngine();
+	pRenderEngine->Init(sceneNodeDataSet);
+
+	RenderLoop(pRenderEngine);
+
+	// ==================================================================
 
 	/* Delete our opengl context, destroy our window, and shutdown SDL */
 	SDL_GL_DeleteContext(maincontext);
@@ -110,4 +112,45 @@ int main(int argc, char *argv[])
 	SDL_Quit();
 
 	return 0;
+}
+
+std::vector<SceneNodeData *> SetupScene()
+{
+	std::vector<SceneNodeData *> sceneNodeDataSet;
+
+	// -------------------------------------------------------------------------------------------------------------------
+	GUID modelId;
+	HRESULT hCreateGuid = CoCreateGuid(&modelId);
+	GUID parentNodeId = GUIDFinder::ZeroGuid;
+	std::vector<GUID> childNodeIdSet;
+	std::string objectFilename = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Debug/data/obj/capsule/capsule.obj";
+	std::string textureFilename = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Debug/data/obj/capsule/capsule0.jpg";
+
+	std::map<AttributeType, std::string> attributeTypeNameSet;
+
+	attributeTypeNameSet.insert(std::pair<AttributeType, std::string>(AttributeType::CoordCart, "CoordCart"));
+	attributeTypeNameSet.insert(std::pair<AttributeType, std::string>(AttributeType::CoordTex, "CoordTex"));
+	attributeTypeNameSet.insert(std::pair<AttributeType, std::string>(AttributeType::NormCart, "NormCart"));
+
+
+	ModelNodeData * pModelNode = new ModelNodeData(modelId, parentNodeId, childNodeIdSet, objectFilename, textureFilename, attributeTypeNameSet);
+	// -------------------------------------------------------------------------------------------------------------------
+
+	sceneNodeDataSet.push_back(pModelNode);
+
+	return sceneNodeDataSet;
+}
+
+
+bool RenderLoop(RenderingEngine *pRenderEngine)
+{
+	// TODO: do the loop and SDL-Event Handling
+
+	bool succ = true;
+	while (true)
+	{
+		succ = pRenderEngine->Render();
+	}
+
+	return true;
 }
