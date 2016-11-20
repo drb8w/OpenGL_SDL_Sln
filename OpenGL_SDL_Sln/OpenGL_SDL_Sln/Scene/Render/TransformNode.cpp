@@ -12,6 +12,10 @@ namespace TotalGlobal
 
 	bool TransformNode::Render()
 	{
+		// TODO: update transform matrices
+
+		// traverse the children
+		RenderChildren();
 
 		return true;
 	}

@@ -25,11 +25,12 @@ namespace TotalGlobal
 		GLuint m_TextureId = UINT_MAX;
 		GLuint m_VBOId = UINT_MAX;
 		GLuint m_VAOId = UINT_MAX;
+		GLsizei m_No_Vertices = 0;
 
 	public:
 		ModelData(const std::string &objectFilename, const std::string &textureFilename, 
 			const std::map<AttributeType, std::string> &attributeTypeNameSet)
-			: m_ObjectFilename(objectFilename), m_TextureFilename(textureFilename)
+			: m_ObjectFilename(objectFilename), m_TextureFilename(textureFilename), m_AttributeTypeNameSet(attributeTypeNameSet)
 		{
 		}
 
@@ -85,7 +86,6 @@ namespace TotalGlobal
 			if (m_VBOId != UINT_MAX)
 				return false;
 
-			//ObjModelLoader loader(m_ObjectFilename, m_TextureFilename);
 			ObjModelLoader loader(m_ObjectFilename, m_TextureFilename,
 				attribId_CoordCart, attribId_CoordTex, attribId_NormCart);
 
@@ -95,6 +95,7 @@ namespace TotalGlobal
 				m_TextureId = loader.GetTextureId();
 				m_VBOId = loader.GetVBO();
 				m_VAOId = loader.GetVAO();
+				m_No_Vertices = loader.GetVertices().size();
 			}
 			return true;
 		}
@@ -119,6 +120,11 @@ namespace TotalGlobal
 			return m_VAOId;
 		}
 
+		GLsizei GetNoVertices()
+		{
+			return m_No_Vertices;
+		}
+		
 	};
 
 }

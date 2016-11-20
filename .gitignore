@@ -1190,3 +1190,5 @@ OpenGL_SDL_Sln/OpenGL_SDL_Sln/Release/RenderEngine.obj
 OpenGL_SDL_Sln/OpenGL_SDL_Sln/Release/SceneNodeFactory.obj
 OpenGL_SDL_Sln/OpenGL_SDL_Sln/Release/ShaderNode.obj
 OpenGL_SDL_Sln/OpenGL_SDL_Sln/Release/TransformNode.obj
+OpenGL_SDL_Sln/Debug/glew32.dll
+OpenGL_SDL_Sln/Release/glew32.dll

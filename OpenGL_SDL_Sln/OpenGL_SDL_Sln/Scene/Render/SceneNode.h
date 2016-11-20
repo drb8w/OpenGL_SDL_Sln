@@ -46,6 +46,18 @@ namespace TotalGlobal
 
 		virtual bool Render() = 0;
 
+	protected:
+		// traverse the children
+		virtual bool RenderChildren()
+		{
+			for (auto it = m_ChildNodeSet.begin(); it != m_ChildNodeSet.end(); ++it)
+			{
+				(*it)->Render();
+			}
+
+			return true;
+		}
+
 	};
 
 }

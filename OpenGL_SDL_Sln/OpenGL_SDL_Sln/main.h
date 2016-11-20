@@ -34,4 +34,4 @@ int main(int argc, char *argv[]);
 
 std::vector<SceneNodeData *> SetupScene();
 
-bool RenderLoop(RenderingEngine *pRenderEngine);
+bool RenderLoop(RenderingEngine *pRenderEngine, SDL_Window *window);

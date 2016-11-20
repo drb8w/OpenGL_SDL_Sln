@@ -23,7 +23,7 @@ namespace TotalGlobal
 		std::vector<std::string> m_AttributeNames;
 
 		// output
-		GLuint m_ProgramId = UINTMAX_MAX;
+		GLuint m_ProgramId = UINT_MAX;
 		std::map<std::string, GLuint> m_UniformNameIdMap;
 		std::map<std::string, GLuint> m_AttributeNameIdMap;
 
@@ -46,12 +46,12 @@ namespace TotalGlobal
 			m_UniformNames = other.m_UniformNames;
 			m_AttributeNames = other.m_AttributeNames;
 
-			if (m_ProgramId == UINTMAX_MAX)
-			{
-				LoadShader();
-			}
-			else
-			{
+			//if (m_ProgramId == UINT_MAX)
+			//{
+			//	LoadShader();
+			//}
+			//else
+			//{
 				m_ProgramId = other.m_ProgramId;
 
 				// deep copy of maps
@@ -60,7 +60,7 @@ namespace TotalGlobal
 
 				for (std::map<std::string, GLuint>::const_iterator it = other.m_AttributeNameIdMap.cbegin(); it != other.m_AttributeNameIdMap.cend(); ++it)
 					m_AttributeNameIdMap.insert(std::pair<std::string, GLuint>(it->first, it->second));
-			}
+			//}
 		}
 
 		ShaderData& operator=(const ShaderData& other)
@@ -74,12 +74,12 @@ namespace TotalGlobal
 			m_UniformNames = other.m_UniformNames;
 			m_AttributeNames = other.m_AttributeNames;
 
-			if (m_ProgramId == UINTMAX_MAX)
-			{
-				LoadShader();
-			}
-			else
-			{
+			//if (m_ProgramId == UINT_MAX)
+			//{
+			//	LoadShader();
+			//}
+			//else
+			//{
 				m_ProgramId = other.m_ProgramId;
 
 				// deep copy of maps
@@ -88,7 +88,7 @@ namespace TotalGlobal
 
 				for (std::map<std::string, GLuint>::const_iterator it = other.m_AttributeNameIdMap.cbegin(); it != other.m_AttributeNameIdMap.cend(); ++it)
 					m_AttributeNameIdMap.insert(std::pair<std::string, GLuint>(it->first, it->second));
-			}
+			//}
 
 			return *this;
 		}
@@ -119,7 +119,7 @@ namespace TotalGlobal
 
 		bool LoadShader()
 		{
-			if (m_ProgramId != UINTMAX_MAX)
+			if (m_ProgramId != UINT_MAX)
 				return false;
 
 			// Create and compile our GLSL program from the shaders

@@ -68,13 +68,21 @@ namespace TotalGlobal
 		// stride, or how many bytes are between each position attribute in the array
 		// offset, or how many bytes from the start of the array the attribute occurs
 
-		glEnableVertexAttribArray(m_AttribId_CoordCart); // 0
-		glVertexAttribPointer(m_AttribId_CoordCart, 3, GL_FLOAT, GL_FALSE, (2 + 3) * sizeof(float), m_pModelData);  // 3 floats für Position
-		glEnableVertexAttribArray(m_AttribId_CoordTex); // 1
-		glVertexAttribPointer(m_AttribId_CoordTex, 2, GL_FLOAT, GL_FALSE, (3 + 3) * sizeof(float), m_pModelData + 3); // 2 floats als Textur-Koordinaten 
-		glEnableVertexAttribArray(m_AttribId_NormCart); // 2
-		glVertexAttribPointer(m_AttribId_NormCart, 3, GL_FLOAT, GL_FALSE, (3 + 2) * sizeof(float), m_pModelData + (3 + 2)); // 3 floats für den Normalenvektor
-
+		if (m_AttribId_CoordCart != UINT_MAX)
+		{
+			glEnableVertexAttribArray(m_AttribId_CoordCart); // 0
+			glVertexAttribPointer(m_AttribId_CoordCart, 3, GL_FLOAT, GL_FALSE, (2 + 3) * sizeof(float), m_pModelData);  // 3 floats für Position
+		}
+		if (m_AttribId_CoordTex != UINT_MAX)
+		{
+			glEnableVertexAttribArray(m_AttribId_CoordTex); // 1
+			glVertexAttribPointer(m_AttribId_CoordTex, 2, GL_FLOAT, GL_FALSE, (3 + 3) * sizeof(float), m_pModelData + 3); // 2 floats als Textur-Koordinaten 
+		}
+		if (m_AttribId_NormCart != UINT_MAX)
+		{
+			glEnableVertexAttribArray(m_AttribId_NormCart); // 2
+			glVertexAttribPointer(m_AttribId_NormCart, 3, GL_FLOAT, GL_FALSE, (3 + 2) * sizeof(float), m_pModelData + (3 + 2)); // 3 floats für den Normalenvektor
+		}
 		// unbind VAO and VBO to avoid accidental changes
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

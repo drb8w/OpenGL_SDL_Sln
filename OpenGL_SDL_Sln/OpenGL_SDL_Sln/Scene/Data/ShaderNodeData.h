@@ -24,6 +24,11 @@ namespace TotalGlobal
 		//	return m_pShaderData->LoadData();
 		//}
 
+		virtual SceneData *GetData()
+		{
+			return m_pShaderData;
+		}
+
 		ShaderData * GetShaderData(){ return m_pShaderData; }
 
 

@@ -1,6 +1,7 @@
 #include "main.h"
 
 #include "ModelNodeData.h"
+#include "ShaderNodeData.h"
 #include "GUIDFinder.h"
 
 /* A simple function that prints a message, the error code returned by SDL,
@@ -114,7 +115,7 @@ int main(int argc, char *argv[])
 	RenderingEngine *pRenderEngine = new RenderingEngine();
 	pRenderEngine->Init(sceneNodeDataSet);
 
-	RenderLoop(pRenderEngine);
+	RenderLoop(pRenderEngine, mainwindow);
 
 	// ==================================================================
 
@@ -130,31 +131,50 @@ std::vector<SceneNodeData *> SetupScene()
 {
 	std::vector<SceneNodeData *> sceneNodeDataSet;
 
-	// -------------------------------------------------------------------------------------------------------------------
+	GUID shaderId;
+	HRESULT hCreateGuid = CoCreateGuid(&shaderId);
 	GUID modelId;
-	HRESULT hCreateGuid = CoCreateGuid(&modelId);
-	GUID parentNodeId = GUIDFinder::ZeroGuid;
-	std::vector<GUID> childNodeIdSet;
+	hCreateGuid = CoCreateGuid(&modelId);
+
+	// -------------------------------------------------------------------------------------------------------------------
+
+	GUID shaderParentId = GUIDFinder::ZeroGuid;
+	std::vector<GUID> shaderChilIdSet;
+	shaderChilIdSet.push_back(modelId);
+	std::string vertexShaderName = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Shader/TransformVertexShader.vertexshader";
+	std::string fragmentShaderName = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Shader/TextureFragmentShader.fragmentshader";
+	std::vector<std::string> uniformNames;
+	uniformNames.push_back("MVP");
+	std::vector<std::string> attributeNames;
+	attributeNames.push_back("vertexPosition_modelspace");
+	attributeNames.push_back("vertexUV");
+
+	ShaderNodeData * pShaderNode = new ShaderNodeData(shaderId, shaderParentId, shaderChilIdSet,
+		vertexShaderName, fragmentShaderName, uniformNames, attributeNames);
+
+	// -------------------------------------------------------------------------------------------------------------------
+	GUID modelParentId = shaderId;
+	std::vector<GUID> modelChildIdSet;
 	std::string objectFilename = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Debug/data/obj/capsule/capsule.obj";
 	std::string textureFilename = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Debug/data/obj/capsule/capsule0.jpg";
-
 	std::map<AttributeType, std::string> attributeTypeNameSet;
-
-	attributeTypeNameSet.insert(std::pair<AttributeType, std::string>(AttributeType::CoordCart, "CoordCart"));
-	attributeTypeNameSet.insert(std::pair<AttributeType, std::string>(AttributeType::CoordTex, "CoordTex"));
+	attributeTypeNameSet.insert(std::pair<AttributeType, std::string>(AttributeType::CoordCart, "vertexPosition_modelspace"));
+	attributeTypeNameSet.insert(std::pair<AttributeType, std::string>(AttributeType::CoordTex, "vertexUV"));
 	attributeTypeNameSet.insert(std::pair<AttributeType, std::string>(AttributeType::NormCart, "NormCart"));
 
-
-	ModelNodeData * pModelNode = new ModelNodeData(modelId, parentNodeId, childNodeIdSet, objectFilename, textureFilename, attributeTypeNameSet);
+	ModelNodeData * pModelNode = new ModelNodeData(modelId, modelParentId, modelChildIdSet, objectFilename, textureFilename, attributeTypeNameSet);
 	// -------------------------------------------------------------------------------------------------------------------
 
+	sceneNodeDataSet.push_back(pShaderNode);
 	sceneNodeDataSet.push_back(pModelNode);
+
+	// -------------------------------------------------------------------------------------------------------------------
 
 	return sceneNodeDataSet;
 }
 
 
-bool RenderLoop(RenderingEngine *pRenderEngine)
+bool RenderLoop(RenderingEngine *pRenderEngine, SDL_Window *window)
 {
 	// TODO: do the loop and SDL-Event Handling
 
@@ -162,6 +182,10 @@ bool RenderLoop(RenderingEngine *pRenderEngine)
 	while (true)
 	{
 		succ = pRenderEngine->Render();
+
+		SDL_GL_SwapWindow(window);
+		// TEST
+		SDL_Delay(2000);
 	}
 
 	return true;

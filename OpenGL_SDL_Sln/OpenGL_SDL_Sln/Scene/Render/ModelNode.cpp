@@ -35,6 +35,12 @@ namespace TotalGlobal
 
 	bool ModelNode::Render()
 	{
+		// TODO: change upon usage of element buffers !!!
+		glBindVertexArray(m_pModelData->GetVAOId());
+		glDrawArrays(GL_TRIANGLES, 0, m_pModelData->GetNoVertices());
+
+		// traverse the children
+		RenderChildren();
 
 		return true;
 	}
