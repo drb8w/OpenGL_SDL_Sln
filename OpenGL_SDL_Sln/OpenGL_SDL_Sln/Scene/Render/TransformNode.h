@@ -29,6 +29,9 @@ namespace TotalGlobal
 
 		virtual bool LoadData();
 
+		glm::mat4x4 GetLocalTransform();
+		glm::mat4x4 GetGlobalTransform();
+
 		virtual bool Render();
 
 	};

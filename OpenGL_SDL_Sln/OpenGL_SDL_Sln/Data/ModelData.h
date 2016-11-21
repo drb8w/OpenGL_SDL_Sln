@@ -10,6 +10,8 @@
 namespace TotalGlobal
 {
 	enum AttributeType { CoordCart, CoordTex, NormCart };
+	enum UniformType { ModelMatrix, ViewMatrix, ProjectionMatrix, ModelViewMatrix, ModelViewProjectionMatrix, 
+		Texture2D00, Texture2D01, Texture2D02, Texture2D03, TextureCubeMap00, TextureCubeMap01	};
 
 	class ModelData : public SceneData
 	{
@@ -18,6 +20,7 @@ namespace TotalGlobal
 		std::string m_ObjectFilename;
 		std::string m_TextureFilename;
 
+		std::map<UniformType, std::string> m_UniformTypeNameSet;
 		std::map<AttributeType, std::string> m_AttributeTypeNameSet;
 
 		// output
@@ -29,8 +32,10 @@ namespace TotalGlobal
 
 	public:
 		ModelData(const std::string &objectFilename, const std::string &textureFilename, 
+			const std::map<UniformType, std::string> &uniformTypeNameSet,
 			const std::map<AttributeType, std::string> &attributeTypeNameSet)
-			: m_ObjectFilename(objectFilename), m_TextureFilename(textureFilename), m_AttributeTypeNameSet(attributeTypeNameSet)
+			: m_ObjectFilename(objectFilename), m_TextureFilename(textureFilename), 
+			m_UniformTypeNameSet(uniformTypeNameSet), m_AttributeTypeNameSet(attributeTypeNameSet)
 		{
 		}
 
@@ -43,6 +48,8 @@ namespace TotalGlobal
 			m_ObjectFilename = other.m_ObjectFilename;
 			m_TextureFilename = other.m_TextureFilename;
 
+			m_UniformTypeNameSet = other.m_UniformTypeNameSet;
+			m_AttributeTypeNameSet = other.m_AttributeTypeNameSet;
 		}
 
 		ModelData& operator=(const ModelData& other)
@@ -54,12 +61,26 @@ namespace TotalGlobal
 			m_ObjectFilename = other.m_ObjectFilename;
 			m_TextureFilename = other.m_TextureFilename;
 
+			m_UniformTypeNameSet = other.m_UniformTypeNameSet;
+			m_AttributeTypeNameSet = other.m_AttributeTypeNameSet;
+
 			return *this;
 		}
 
 		std::string GetObjectFilename(){ return m_ObjectFilename; }
 		std::string GetTextureFilename(){ return m_TextureFilename; }
+
+		std::map<UniformType, std::string> GetUniformTypeNameSet(){ return m_UniformTypeNameSet; }
 		std::map<AttributeType, std::string> GetAttributeTypeNameSet(){ return m_AttributeTypeNameSet; }
+
+		std::string GetUniformName(UniformType uniformType)
+		{
+			auto it = m_UniformTypeNameSet.find(uniformType);
+			if (it != m_UniformTypeNameSet.end())
+				return it->second;
+
+			return "";
+		}
 
 		std::string GetAttributeName(AttributeType attributeType)
 		{

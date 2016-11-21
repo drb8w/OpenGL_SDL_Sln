@@ -1,7 +1,12 @@
 #include "main.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "ModelNodeData.h"
 #include "ShaderNodeData.h"
+#include "CameraNodeData.h"
+#include "ViewPortNodeData.h"
+
 #include "GUIDFinder.h"
 
 /* A simple function that prints a message, the error code returned by SDL,
@@ -131,20 +136,45 @@ std::vector<SceneNodeData *> SetupScene()
 {
 	std::vector<SceneNodeData *> sceneNodeDataSet;
 
+	GUID viewPortId;
+	HRESULT hCreateGuid = CoCreateGuid(&viewPortId);
+	GUID cameraId;
+	hCreateGuid = CoCreateGuid(&cameraId);
 	GUID shaderId;
-	HRESULT hCreateGuid = CoCreateGuid(&shaderId);
+	hCreateGuid = CoCreateGuid(&shaderId);
 	GUID modelId;
 	hCreateGuid = CoCreateGuid(&modelId);
 
 	// -------------------------------------------------------------------------------------------------------------------
 
-	GUID shaderParentId = GUIDFinder::ZeroGuid;
+	GUID viewPortParentId = GUIDFinder::ZeroGuid;
+	std::vector<GUID> viewPortChildIdSet;
+	viewPortChildIdSet.push_back(cameraId);
+	GLsizei width = 512; 
+	GLsizei height = 512;
+
+	ViewPortNodeData *pViewPortNode = new ViewPortNodeData(viewPortId, viewPortParentId, viewPortChildIdSet, width, height);
+
+	// -------------------------------------------------------------------------------------------------------------------
+
+	GUID cameraParentId = viewPortId;
+	std::vector<GUID> cameraChildIdSet;
+	cameraChildIdSet.push_back(shaderId);
+	glm::mat4x4 viewTransform = glm::mat4x4();
+	glm::mat4x4 projectionTransform = glm::perspective(35.0f, 1.0f, 0.1f, 100.0f);
+
+	CameraNodeData *pCameraNode = new CameraNodeData(cameraId, cameraParentId, cameraChildIdSet, viewTransform, projectionTransform);
+
+	// -------------------------------------------------------------------------------------------------------------------
+
+	GUID shaderParentId = cameraId;
 	std::vector<GUID> shaderChilIdSet;
 	shaderChilIdSet.push_back(modelId);
 	std::string vertexShaderName = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Shader/TransformVertexShader.vertexshader";
 	std::string fragmentShaderName = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Shader/TextureFragmentShader.fragmentshader";
 	std::vector<std::string> uniformNames;
 	uniformNames.push_back("MVP");
+	uniformNames.push_back("myTextureSampler");
 	std::vector<std::string> attributeNames;
 	attributeNames.push_back("vertexPosition_modelspace");
 	attributeNames.push_back("vertexUV");
@@ -157,13 +187,21 @@ std::vector<SceneNodeData *> SetupScene()
 	std::vector<GUID> modelChildIdSet;
 	std::string objectFilename = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Debug/data/obj/capsule/capsule.obj";
 	std::string textureFilename = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Debug/data/obj/capsule/capsule0.jpg";
+
+	std::map<UniformType, std::string> uniformTypeNameSet;
+	uniformTypeNameSet.insert(std::pair<UniformType, std::string>(UniformType::ModelViewProjectionMatrix, "MVP"));
+	uniformTypeNameSet.insert(std::pair<UniformType, std::string>(UniformType::Texture2D00, "myTextureSampler"));
+
 	std::map<AttributeType, std::string> attributeTypeNameSet;
 	attributeTypeNameSet.insert(std::pair<AttributeType, std::string>(AttributeType::CoordCart, "vertexPosition_modelspace"));
 	attributeTypeNameSet.insert(std::pair<AttributeType, std::string>(AttributeType::CoordTex, "vertexUV"));
 	attributeTypeNameSet.insert(std::pair<AttributeType, std::string>(AttributeType::NormCart, "NormCart"));
 
-	ModelNodeData * pModelNode = new ModelNodeData(modelId, modelParentId, modelChildIdSet, objectFilename, textureFilename, attributeTypeNameSet);
+	ModelNodeData * pModelNode = new ModelNodeData(modelId, modelParentId, modelChildIdSet, objectFilename, textureFilename, uniformTypeNameSet, attributeTypeNameSet);
 	// -------------------------------------------------------------------------------------------------------------------
+
+	sceneNodeDataSet.push_back(pViewPortNode);
+	sceneNodeDataSet.push_back(pCameraNode);
 
 	sceneNodeDataSet.push_back(pShaderNode);
 	sceneNodeDataSet.push_back(pModelNode);
@@ -179,13 +217,27 @@ bool RenderLoop(RenderingEngine *pRenderEngine, SDL_Window *window)
 	// TODO: do the loop and SDL-Event Handling
 
 	bool succ = true;
+
+	// ViewPort-Setup
+	// TODO: move to own Node !!!
+
+	// EXTREME HACK
+	static const GLfloat gray[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	static const GLfloat ones[] = { 1.0f };
+	glViewport(0, 0, 512, 512);
+
+	glEnable(GL_DEPTH_TEST);
+
 	while (true)
 	{
+		glClearBufferfv(GL_COLOR, 0, gray);
+		glClearBufferfv(GL_DEPTH, 0, ones);
+
 		succ = pRenderEngine->Render();
 
 		SDL_GL_SwapWindow(window);
 		// TEST
-		SDL_Delay(2000);
+		//SDL_Delay(2000);
 	}
 
 	return true;

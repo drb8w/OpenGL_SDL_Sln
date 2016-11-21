@@ -46,6 +46,9 @@
     <Filter Include="Source Files\Scene\Search">
       <UniqueIdentifier>{c32ec533-8453-408c-a22c-2ac7c76447a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Math">
+      <UniqueIdentifier>{b6bf57bd-03f2-4cbc-a14a-7cbc4235aa90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="Scene\Search\GUIDFinder.cpp">
       <Filter>Source Files\Scene\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathMisc.cpp">
+      <Filter>Source Files\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +154,27 @@
     </ClInclude>
     <ClInclude Include="Scene\Search\NodeFinder.h">
       <Filter>Source Files\Scene\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Render\CameraNode.h">
+      <Filter>Source Files\Scene\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Data\CameraNodeData.h">
+      <Filter>Source Files\Scene\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\CameraData.h">
+      <Filter>Source Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\ViewPortData.h">
+      <Filter>Source Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Render\ViewPortNode.h">
+      <Filter>Source Files\Scene\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Data\ViewPortNodeData.h">
+      <Filter>Source Files\Scene\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathMisc.h">
+      <Filter>Source Files\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

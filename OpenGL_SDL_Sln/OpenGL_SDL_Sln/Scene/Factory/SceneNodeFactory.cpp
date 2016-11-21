@@ -3,10 +3,14 @@
 #include "ModelNodeData.h"
 #include "ShaderNodeData.h"
 #include "TransformNodeData.h"
+#include "CameraNodeData.h"
+#include "ViewPortNodeData.h"
 
 #include "ModelNode.h"
 #include "ShaderNode.h"
 #include "TransformNode.h"
+#include "CameraNode.h"
+#include "ViewPortNode.h"
 
 namespace TotalGlobal
 {
@@ -25,6 +29,16 @@ namespace TotalGlobal
 		if (pTransformData != nullptr)
 			pSceneNode = new TransformNode(pTransformData);
 		
+		CameraData *pCameraData = dynamic_cast<CameraData *>(pNodeData);
+		if (pCameraData != nullptr)
+			pSceneNode = new CameraNode(pCameraData);
+
+		ViewPortData *pViewPortData = dynamic_cast<ViewPortData *>(pNodeData);
+		if (pViewPortData != nullptr)
+			pSceneNode = new ViewPortNode(pViewPortData);
+
+		// Light
+
 		if (pSceneNode == nullptr)
 			return nullptr;
 

@@ -17,10 +17,11 @@ namespace TotalGlobal
 	public:
 		ModelNodeData(GUID nodeId, GUID parentNodeId, std::vector<GUID> childNodeIdSet,
 			const std::string &objectFilename, const std::string &textureFilename,
+			const std::map<UniformType, std::string> &uniformTypeNameSet,
 			const std::map<AttributeType, std::string> &attributeTypeNameSet)
 			: SceneNodeData(nodeId, parentNodeId, childNodeIdSet)
 		{
-			m_pModelData = new ModelData(objectFilename, textureFilename, attributeTypeNameSet);
+			m_pModelData = new ModelData(objectFilename, textureFilename, uniformTypeNameSet, attributeTypeNameSet);
 		}
 
 		//virtual bool LoadData()

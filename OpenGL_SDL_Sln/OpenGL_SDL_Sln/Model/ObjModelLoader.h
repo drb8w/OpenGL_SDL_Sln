@@ -18,7 +18,7 @@ namespace TotalGlobal
 		std::string m_Filename_texture;
 
 		// output
-		GLuint m_TextureUnitId = 7; // TODO: check for a free texture unit
+		GLuint m_TextureUnitId = GL_TEXTURE0 + 7; // TODO: check for a free texture unit
 		GLuint m_TextureId;
 		std::vector<glm::vec3> m_Vertices;
 		std::vector<glm::vec2> m_TextureCoordinates;

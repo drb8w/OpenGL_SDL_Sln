@@ -102,6 +102,16 @@ namespace TotalGlobal
 		std::map<std::string, GLuint> GetUniformNameIdMap(){ return m_UniformNameIdMap; }
 		std::map<std::string, GLuint> GetAttributeNameIdMap(){ return m_AttributeNameIdMap; }
 
+		GLuint GetUniformId(const std::string & uniformName)
+		{
+			auto it = m_UniformNameIdMap.find(uniformName);
+
+			if (it != m_UniformNameIdMap.end())
+				return it->second;
+
+			return UINT_MAX;
+		}
+
 		GLuint GetAttributeId(const std::string & attributeName)
 		{
 			auto it = m_AttributeNameIdMap.find(attributeName);
@@ -111,6 +121,7 @@ namespace TotalGlobal
 
 			return UINT_MAX;
 		}
+
 
 		virtual bool LoadData()
 		{
