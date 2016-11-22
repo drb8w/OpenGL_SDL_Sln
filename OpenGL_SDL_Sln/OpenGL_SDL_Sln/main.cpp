@@ -160,7 +160,7 @@ std::vector<SceneNodeData *> SetupScene()
 	GUID cameraParentId = viewPortId;
 	std::vector<GUID> cameraChildIdSet;
 	cameraChildIdSet.push_back(shaderId);
-	glm::mat4x4 viewTransform = glm::mat4x4();
+	glm::mat4x4 viewTransform = glm::lookAt(glm::vec3(0, 0, -100), glm::vec3(0, 0, 0), glm::vec3(1, 0, 0));
 	glm::mat4x4 projectionTransform = glm::perspective(35.0f, 1.0f, 0.1f, 100.0f);
 
 	CameraNodeData *pCameraNode = new CameraNodeData(cameraId, cameraParentId, cameraChildIdSet, viewTransform, projectionTransform);
@@ -186,7 +186,8 @@ std::vector<SceneNodeData *> SetupScene()
 	GUID modelParentId = shaderId;
 	std::vector<GUID> modelChildIdSet;
 	std::string objectFilename = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Debug/data/obj/capsule/capsule.obj";
-	std::string textureFilename = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Debug/data/obj/capsule/capsule0.jpg";
+	//std::string textureFilename = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Debug/data/obj/capsule/capsule0.jpg";
+	std::string textureFilename = "C:/OpenGL_SDL_Sln/OpenGL_SDL_Sln/Debug/data/obj/capsule/capsule0Square.jpg";
 
 	std::map<UniformType, std::string> uniformTypeNameSet;
 	uniformTypeNameSet.insert(std::pair<UniformType, std::string>(UniformType::ModelViewProjectionMatrix, "MVP"));
@@ -228,8 +229,15 @@ bool RenderLoop(RenderingEngine *pRenderEngine, SDL_Window *window)
 
 	glEnable(GL_DEPTH_TEST);
 
-	while (true)
+	//Event handler
+	SDL_Event e;
+
+	while (SDL_PollEvent(&e) != 0)
 	{
+		//User requests quit
+		if (e.type == SDL_QUIT)
+			return true;
+
 		glClearBufferfv(GL_COLOR, 0, gray);
 		glClearBufferfv(GL_DEPTH, 0, ones);
 
@@ -237,7 +245,13 @@ bool RenderLoop(RenderingEngine *pRenderEngine, SDL_Window *window)
 
 		SDL_GL_SwapWindow(window);
 		// TEST
-		//SDL_Delay(2000);
+		SDL_Delay(2000);
+
+		/* Same as above, but blue */
+		glClearColor(0.0, 0.0, 1.0, 1.0);
+		glClear(GL_COLOR_BUFFER_BIT);
+		SDL_GL_SwapWindow(window);
+		SDL_Delay(2000);
 	}
 
 	return true;

@@ -10,21 +10,61 @@ namespace TotalGlobal
 	// load model
 	bool ObjModelLoader::Load()
 	{
+		// clear error state
+		glGetError();
+
 		// -------------------------------------------------------------------
 		// Load the texture
 		// -------------------------------------------------------------------
+
 		glActiveTexture(m_TextureUnitId);
 
+		// version 1.0: use a texture generator
+		// ---------------------------------------------------------
 		//m_TextureId = loadDDS(m_Filename_texture.c_str());
 
 		/* load an image file directly as a new OpenGL texture */
-		m_TextureId = SOIL_load_OGL_texture
-			(
-			m_Filename_texture.c_str(),
-			SOIL_LOAD_AUTO,
-			SOIL_CREATE_NEW_ID,
-			SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
-			);
+		//m_TextureId = SOIL_load_OGL_texture
+		//	(
+		//	m_Filename_texture.c_str(),
+		//	SOIL_LOAD_AUTO,
+		//	SOIL_CREATE_NEW_ID,
+		//	SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+		//	);
+
+		//m_TextureId = SOIL_load_OGL_texture(m_Filename_texture.c_str(),
+		//	SOIL_LOAD_AUTO,
+		//	SOIL_CREATE_NEW_ID,
+		//	SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA
+		//	);
+
+		// version 2.0: generate own texture out of loaded file
+		// ---------------------------------------------------------
+		int width;
+		int height;
+		int channels;
+		unsigned char *pImageData = SOIL_load_image(m_Filename_texture.c_str(), &width, &height, &channels, SOIL_LOAD_RGB);
+		if (pImageData != nullptr)
+		{
+			glGenTextures(1, &m_TextureId);
+			glBindTexture(GL_TEXTURE_2D, m_TextureId);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, pImageData);
+
+			glGenerateMipmap(GL_TEXTURE_2D);
+
+			SOIL_free_image_data(pImageData);
+
+			const char *result = SOIL_last_result();
+
+		}
+		GLenum err = glGetError();
 
 		// -------------------------------------------------------------------
 		// Read our .obj file
